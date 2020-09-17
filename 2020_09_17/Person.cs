@@ -25,9 +25,14 @@ namespace _2020_09_17
             set { lname = value; }
         }
 
-        public Person()
+        public Person() : this("김", "아무게")
         {
+            Console.WriteLine("Person 생성");
+        }
 
+        ~Person()
+        {
+            Console.WriteLine("Person삭제");
         }
 
         public Person(string Fname, string Lname)
@@ -36,14 +41,15 @@ namespace _2020_09_17
             this.Lname = Lname;
         }
 
-        public virtual void VirtualPrint()
+        public void Print()
         {
             Console.WriteLine("============ Main =============");
             Console.WriteLine("First Name : {0}", fName);
             Console.WriteLine("Last Name : {0}", lname);
             Console.WriteLine("===============================");
         }
-        public virtual void VirtualPrint(Person rpyee)
+
+        public virtual void VirtualPrint()
         {
             Console.WriteLine("============ Main =============");
             Console.WriteLine("First Name : {0}", fName);
@@ -60,36 +66,42 @@ namespace _2020_09_17
     {
         int employeeID;
 
-        public override void VirtualPrint()
+        public int EmployeeID { get => employeeID; set => employeeID = value; }
+
+        public new void Print()
         {
             Console.WriteLine("============ Employee =============");
-            Console.WriteLine("employeeID : {0}", employeeID);
+            Console.WriteLine("employeeID : {0}", EmployeeID);
             Console.WriteLine("First Name : {0}", fName);
             Console.WriteLine("Last Name : {0}", lname);
             Console.WriteLine("===============================");
         }
-        public override void VirtualPrint(Person rpyee)
+        public override void VirtualPrint()
         {
-            rpyee = new Employee();
             Console.WriteLine("============ Employee =============");
-            Console.WriteLine("employeeID : {0}", employeeID);
+            Console.WriteLine("employeeID : {0}", EmployeeID);
             Console.WriteLine("First Name : {0}", fName);
             Console.WriteLine("Last Name : {0}", lname);
             Console.WriteLine("===============================");
         }
         public Employee()
         {
-
+            Console.WriteLine("Employee 생성");
         }
 
         public Employee(int ID) : base()
         {
-            employeeID = ID;
+            EmployeeID = ID;
         }
 
         public Employee(int ID, string Fname, string Lname) : base(Fname, Lname)
         {
-            employeeID = ID;
+            EmployeeID = ID;
+        }
+
+        ~Employee()
+        {
+            Console.WriteLine("Employee 삭제");
         }
 
         public override string ToString()
@@ -98,33 +110,21 @@ namespace _2020_09_17
         }
     }
 
-    public class Rpyee : Person
+    public class SalesMan : Employee
     {
 
-        int ID;
-        public Rpyee()
+        int Bou = 100;
+
+        #region 생성자
+        public SalesMan() : base()
         {
-                
+            Console.WriteLine("SalesMan 생성");
+            base.EmployeeID = 1;
         }
-        public Rpyee(int ID, string Fname, string Lname) : base(Fname, Lname)
+        public SalesMan(int ID, string Fname, string Lname) : base(ID,Fname, Lname)
         {
-            this.ID = ID;
+            base.EmployeeID = 1;
         }
-        public override void VirtualPrint()
-        {
-            Console.WriteLine("============ Rpyee =============");
-            Console.WriteLine("employeeID : {0}", ID);
-            Console.WriteLine("First Name : {0}", fName);
-            Console.WriteLine("Last Name : {0}", lname);
-            Console.WriteLine("===============================");
-        }
-        public override void VirtualPrint(Person rpyee)
-        {
-            Console.WriteLine("============ Rpyee =============");
-            Console.WriteLine("employeeID : {0}", ID);
-            Console.WriteLine("First Name : {0}", fName);
-            Console.WriteLine("Last Name : {0}", lname);
-            Console.WriteLine("===============================");
-        }
+        #endregion
     }
 }
